@@ -12,6 +12,7 @@ const BookModal = ({ treatment, selectedDate }) => {
         const email = form.email.value;
         const phone = form.phone.value;
         console.log(date, name, slot, email, phone)
+        form.reset()
     }
     return (
         <div>
@@ -30,7 +31,7 @@ const BookModal = ({ treatment, selectedDate }) => {
                         </select>
                         <input name='name' type="text" placeholder="Your Name" className="input input-bordered w-full" />
                         <input name='email' type="email" placeholder="Your Email" className="input input-bordered w-full" />
-                        <input name='address' type="text" placeholder="Your Phone" className="input input-bordered w-full" />
+                        <input name='phone' type="text" placeholder="Your Phone" className="input input-bordered w-full" />
                         <input type="submit" className='w-full btn btn-accent' value="Submit" />
                     </form>
 
