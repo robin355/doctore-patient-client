@@ -3,7 +3,7 @@ import { React, useEffect, useState } from 'react';
 import BookModal from '../../BookModal/BookModal';
 import Option from './Option';
 
-const AvailableAppointment = ({ selectedDate }) => {
+const AvailableAppointment = ({ selectedDate, setselectedDate }) => {
     const [appointmentOptions, setAppointmentOptions] = useState([])
     const [treatment, setTreatment] = useState(null)
     useEffect(() => {
@@ -21,7 +21,7 @@ const AvailableAppointment = ({ selectedDate }) => {
             </div>
             {
                 treatment &&
-                <BookModal treatment={treatment} selectedDate={selectedDate}></BookModal>}
+                <BookModal treatment={treatment} setTreatment={setTreatment} selectedDate={selectedDate}></BookModal>}
 
         </div>
     );
