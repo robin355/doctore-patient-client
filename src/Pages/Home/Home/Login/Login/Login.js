@@ -1,11 +1,24 @@
-import React from 'react';
+import { React, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../../../Context/AuthProvider';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
+    const [loginError, setLoginError] = useState('')
+    const { SignIn } = useContext(AuthContext)
     const handleLogin = data => {
         console.log(data)
+        setLoginError(' ')
+        SignIn(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+            })
+            .catch(error => {
+                console.log(error)
+                setLoginError(error.message)
+            })
     }
     return (
         <div className="h-[800px] flex justify-center items-center">
@@ -34,10 +47,16 @@ const Login = () => {
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
                     <input className='btn btn-accent w-full' value='Login' type="submit" />
-                    <p>New To Portal <Link className='text-secondary' to='/signup'>Create New Account</Link></p>
-                    <div className="divider">OR</div>
-                    <button className='btn btn-outline w-full'>COUNTINUE WITH GOOGLE</button>
                 </form>
+                <div>
+                    {
+                        loginError && <p className='text-red-600'>{loginError}</p>
+                    }
+                </div>
+                <p>New To Portal <Link className='text-secondary' to='/signup'>Create New Account</Link></p>
+                <div className="divider">OR</div>
+                <button className='btn btn-outline w-full'>COUNTINUE WITH GOOGLE</button>
+
             </div>
         </div>
     );

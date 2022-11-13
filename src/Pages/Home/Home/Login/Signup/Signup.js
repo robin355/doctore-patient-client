@@ -1,10 +1,33 @@
-import React from 'react';
+import { React, useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-hot-toast';
+import { AuthContext } from '../../../../../Context/AuthProvider';
 const Signup = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
+    const { createUser, updateUser } = useContext(AuthContext)
+    const [SignupError, setSignupError] = useState('')
     const handleSignup = data => {
+        setSignupError(' ')
         console.log(data)
+        createUser(data.email, data.password)
+            .then(result => {
+                const user = result.user;
+                console.log(user)
+                toast('crate successfully')
+                const userInfo = {
+                    displayName: data.name
+                }
+                updateUser(userInfo)
+                    .then(() => { })
+                    .catch(error => {
+                        console.log(error)
+                    })
+            })
+            .catch(error => {
+                console.log(error)
+                setSignupError(error.message)
+            })
     }
     return (
         <div className="h-[800px] flex justify-center items-center">
@@ -36,15 +59,21 @@ const Signup = () => {
                         </label>
                         <input type="password" {...register("password", {
                             required: "Email Password is required",
+                            pattern: { value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])/, message: 'password must be strong' },
                             minLength: { value: 6, message: 'Password Must be 6 character Longer' }
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
                     <input className='btn btn-accent w-full' value='Signup' type="submit" />
-                    <p>Already have an Account?<Link className='text-secondary' to='/login'>Please Login</Link></p>
-                    <div className="divider">OR</div>
-                    <button className='btn btn-outline w-full'>COUNTINUE WITH GOOGLE</button>
                 </form>
+                {
+                    SignupError && <p className='text-red-600'>{SignupError}</p>
+
+                }
+                <p>Already have an Account?<Link className='text-secondary' to='/login'>Please Login</Link></p>
+                <div className="divider">OR</div>
+                <button className='btn btn-outline w-full'>COUNTINUE WITH GOOGLE</button>
+
             </div>
         </div>
     );
