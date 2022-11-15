@@ -33,7 +33,7 @@ const AuthProvider = ({ children }) => {
         return signOut(auth)
     }
     const updateUser = (userInfo) => {
-        return updateProfile(userInfo)
+        return updateProfile(auth.currentUser, userInfo)
     }
     const forgetpassword = (email) => {
         return sendPasswordResetEmail(auth, email)
