@@ -15,7 +15,8 @@ const Login = () => {
         googleSignIn()
             .then(result => {
                 const user = result.user;
-                toast('Google Sign In')
+                console.log(user)
+                toast.success('Google Sign In')
             })
             .catch(error => console.log(error))
     }
@@ -33,6 +34,7 @@ const Login = () => {
                 setLoginError(error.message)
             })
     }
+
     return (
         <div className="h-[800px] flex justify-center items-center">
             <div className='w-96 p-7'>
@@ -43,7 +45,7 @@ const Login = () => {
                         <label className="label">
                             <span className="label-text">Email</span>
                         </label>
-                        <input type="email" {...register("email", {
+                        <input name='email' type="email" {...register("email", {
                             required: "Email Address is required"
                         })} className="input input-bordered w-full max-w-xs" />
                         {errors.email && <p className='text-red-600'>{errors.email?.message}</p>}
@@ -53,10 +55,10 @@ const Login = () => {
                             <span className="label-text">Password</span>
                         </label>
                         <input type="password" {...register("password", {
-                            required: "Email Password is required",
+                            required: "Password is required",
                             minLength: { value: 6, message: 'Password Must be 6 character Longer' }
                         })} className="input input-bordered w-full max-w-xs" />
-                        <span className="label-text">Forget Password?</span>
+                        <span className="label-text">Forget Password?<button type='button' className='text-secondary'>Please Reset</button></span>
                         {errors.password && <p className='text-red-600'>{errors.password?.message}</p>}
                     </div>
                     <input className='btn btn-accent w-full' value='Login' type="submit" />
