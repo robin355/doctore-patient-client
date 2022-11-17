@@ -8,6 +8,7 @@ import MyDashBoard from '../../Pages/DashBoard/MyDashBoard/MyDashBoard'
 import Home from '../../Pages/Home/Home/Home'
 import Login from '../../Pages/Home/Home/Login/Login/Login'
 import Signup from '../../Pages/Home/Home/Login/Signup/Signup'
+import AdminRoute from '../AdminRoute/AdminRoute'
 import PrivateRoutes from '../PrivateRoutes/PrivateRoutes'
 
 export const router = createBrowserRouter([
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/dashboard/allUser',
-                element: <AllUser></AllUser>
+                element: <AdminRoute><AllUser></AllUser></AdminRoute>
             }
         ]
     }
