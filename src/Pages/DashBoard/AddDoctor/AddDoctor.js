@@ -26,7 +26,7 @@ const AddDoctor = () => {
         const image = data.image[0]
         const formData = new FormData()
         formData.append('image', image)
-        const url = `https://api.imgbb.com/1/upload?expiration=600&key=${imgHostkey}`
+        const url = `https://api.imgbb.com/1/upload?key=${imgHostkey}`
         fetch(url, {
             method: 'POST',
             body: formData
@@ -43,7 +43,8 @@ const AddDoctor = () => {
                     fetch(`http://localhost:5000/doctors`, {
                         method: 'POST',
                         headers: {
-                            'content-type': 'application/json'
+                            'content-type': 'application/json',
+                            authorization: `bearer ${localStorage.getItem('accessToken')}`
                         },
                         body: JSON.stringify(doctore)
                     })
@@ -83,7 +84,7 @@ const AddDoctor = () => {
                         <span className="label-text">Specialty</span>
                     </label>
 
-                    <select {...register("speciality")} className="select input-bordered w-full max-w-xs">
+                    <select type="text" {...register("specialty")} className="select input-bordered w-full max-w-xs">
 
                         {
                             specialites.map(specialty => <option
