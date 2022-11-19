@@ -15,7 +15,9 @@ const AllUser = () => {
     const handleMakeAdmin = (id) => {
         fetch(`https://doctore-patient-server.vercel.app/users/admin/${id}`, {
             method: 'PUT',
-
+            headers: {
+                authorization: `bearer ${localStorage.getItem('accessToken')}`
+            }
         })
             .then(res => res.json())
             .then(data => {
@@ -29,7 +31,6 @@ const AllUser = () => {
         <div>
             <div className="overflow-x-auto">
                 <table className="table w-full">
-
                     <thead>
                         <tr>
                             <th></th>
