@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { AuthContext } from '../../../Context/AuthProvider';
 
 const BookModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
-    const { name: treatmentName, slots } = treatment
+    const { name: treatmentName, slots, price } = treatment
     const { user } = useContext(AuthContext)
     const date = format(selectedDate, 'PP')
     const handleSubmit = event => {
@@ -20,6 +20,7 @@ const BookModal = ({ treatment, selectedDate, setTreatment, refetch }) => {
             patient: name,
             email,
             phone,
+            price,
             slot
         }
         fetch('https://doctore-patient-server.vercel.app/bookings', {
