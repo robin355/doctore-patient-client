@@ -38,8 +38,7 @@ const MyDashBoard = () => {
                     <tbody>
 
                         {
-                            bookings &&
-                            bookings?.map((booking, i) => <tr key={booking._id}>
+                            bookings.map((booking, i) => <tr key={booking._id}>
                                 <th>{i + 1}</th>
                                 <td>{booking.patient}</td>
                                 <td>{booking.treatment}</td>
@@ -48,10 +47,8 @@ const MyDashBoard = () => {
                                 <td>
                                     {
                                         booking.price && !booking.paid && <Link
-                                            to={`/dashboard/payment/${booking._id}`}
-                                        >
-                                            <button
-                                                className='btn btn-primary btn-sm'
+                                            to={`/dashboard/payment/${booking._id}`}>
+                                            <button className='btn btn-primary btn-sm'
                                             >Pay</button>
                                         </Link>
                                     }
